@@ -30,7 +30,7 @@ jobs:
         with:
           name: build
           path: build
-          
+
 build-container:
   name: Build Docker Container
   runs-on: ubuntu-latest
@@ -78,11 +78,12 @@ build-container:
         uses: actions/download-artifact@v2
         with:
           name: docker-image
+          path: /tmp
 
-      # - name: "🚀 Load Docker image from artifact"
-      #   run: |
-      #     # Load the Docker image from the artifact
-      #     docker load -i docker-image/todo-app.tar
+      - name: "🚀 Load Docker image from artifact"
+        run: |
+          docker load -i docker-image/todo-app.tar
+          docker image ls -a
         
       - name: "🚀 Deploy Docker image to Azure Web App"
         uses: azure/webapps-container-deploy@v1
