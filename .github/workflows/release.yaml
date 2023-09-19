@@ -87,7 +87,7 @@ jobs:
           docker load -i /tmp/docker.tar
           docker image ls -a
       - name: "🚀 Install Azure Actions Webclient"
-        run: npm install azure-actions-webclient
+        run: npm install
 
       - name: "🚀 Deploy Docker image to Azure Web App"
         uses: azure/webapps-container-deploy@v2
