@@ -4,10 +4,10 @@
 ## cloning project
 
 ```
-git clone https://github.com/aphrodeosubarno/node-js-todo-app.git
+git clone https://github.com/Naul2354/nodejs-todo-app-demo.git
 ```
 
-## install dependencies
+## install dependencies before run app
 
 ```
 yarn install
@@ -31,8 +31,8 @@ yarn run dev
 npm run dev
 ```
 
-## open this server at your browser
+## open this app at your browser
 
 ```
-http://localhost:3000
+http://localhost:8089
 ```
