@@ -30,8 +30,8 @@ jobs:
       - name: "🔧 Cache node_modules"
         uses: actions/cache@v2
         with:
-        path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         if: steps.cache.outputs.cache-hit != 'true'
 
       - name: "📂 Upload production artifacts"
