@@ -6,6 +6,30 @@ on:
       - main
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "☁️ Checkout code..."
+        uses: actions/checkout@v2
+
+      - name: "🔧 Setup Node.js..."
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: "🔧 Install dependencies..."
+        run: npm install
+        
+      - name: "📦 Unit test"
+        run: npm test
+
+      - name: "📂 Upload artifact for deployment job"
+        uses: actions/upload-artifact@v2
+        with:
+          name: node-app
+          path: .
+
   build-container:
     name: Build Docker Container
     runs-on: ubuntu-latest
