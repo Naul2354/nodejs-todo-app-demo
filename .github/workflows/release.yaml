@@ -54,6 +54,7 @@ jobs:
       - name: "🐳 Build Docker image..."
         run: |
           # Build the Docker image
+          cd ./Docker
           docker build -t todo-app:latest .
 
       - name: "📦 Create tar archive of Docker image..."
