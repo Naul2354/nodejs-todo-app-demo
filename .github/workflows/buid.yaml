@@ -20,3 +20,21 @@ jobs:
 
       - name: "🔧 Install dependencies..."
         run: npm install
+        # Build Docker image
+      - name: "🐳 Build Docker image"
+        run: |
+          docker build -t todo-app:latest .
+          docker images  # List Docker images for verification
+            # Publish Docker image as an artifact
+      # Create a TAR archive of the Docker image
+      - name: "📦 Create Docker image archive"
+        run: |
+          docker save todo-app:latest -o image.tar
+          tar czf image.tar.gz image.tar
+    # deploy:
+    # needs: build
+    # runs-on: ubuntu-latest
+
+    # steps:
+    #   - name: "🚀 Deploy the application to GitHub Pages"
+    #     run: |
