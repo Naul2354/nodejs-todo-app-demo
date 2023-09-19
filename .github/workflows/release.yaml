@@ -21,7 +21,7 @@ jobs:
       - name: "🔧 Install dependencies..."
         run: npm install
         
-      - name: "📦 Unit test"
+      - name: "📦 Unit test..."
         run: npm test
       - name: "🚀 static app"
         run: npm run build
@@ -49,17 +49,17 @@ build-container:
     - name: "🔧 Install dependencies..."
       run: npm install
         
-    - name: "🐳 Build Docker image"
+    - name: "🐳 Build Docker image..."
       run: |
         # Build the Docker image
         docker build -t todo-app:latest .
         
-    - name: "📦 Create tar archive of Docker image"
+    - name: "📦 Create tar archive of Docker image..."
       run: |
         # Create a tar archive of the Docker image
         docker save -o /tmp/docker.tar todo-app:latest
 
-    - name: "📂 Upload Docker image tar archive as artifact"
+    - name: "📂 Upload Docker image tar archive as artifact..."
       uses: actions/upload-artifact@v2
       with:
         name: docker-image
@@ -74,13 +74,13 @@ build-container:
       name: 'Production'
 
     steps:
-      - name: "📂 Download Docker image artifact"
+      - name: "📂 Download Docker image artifact..."
         uses: actions/download-artifact@v2
         with:
           name: docker-image
           path: /tmp
 
-      - name: "🚀 Load Docker image from artifact"
+      - name: "🚀 Load Docker image from artifact..."
         run: |
           docker load -i docker-image/todo-app.tar
           docker image ls -a
