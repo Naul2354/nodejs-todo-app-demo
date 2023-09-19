@@ -90,9 +90,10 @@ jobs:
         run: npm install
 
       - name: "🚀 Deploy Docker image to Azure Web App"
-        uses: azure/webapps-container-deploy@v2
+        uses: azure/webapps-container-deploy@v1
         with:
           app-name: 'todoapp1'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
   cleanup:
     name: Clean up
     runs-on: ubuntu-latest
