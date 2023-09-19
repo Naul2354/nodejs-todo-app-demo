@@ -1,13 +1,13 @@
-# Todo list app
+# Welcome Todo list app 👋
 <br>
 
-## cloning project
+## 🐧🐧cloning project from this link 
 
 ```
 git clone https://github.com/Naul2354/nodejs-todo-app-demo.git
 ```
 
-## install dependencies before run app
+## 💡 install dependencies before run app
 
 ```
 yarn install
@@ -19,7 +19,7 @@ yarn install
 npm install
 ```
 
-## run server
+## 🔎 run server
 
 ```
 yarn run dev
@@ -31,7 +31,7 @@ yarn run dev
 npm run dev
 ```
 
-## open this app at your browser
+## 🖥️ open this app at your browser
 
 ```
 http://localhost:8089
