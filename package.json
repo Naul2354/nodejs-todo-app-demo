@@ -10,7 +10,7 @@
     "start": "node app"
   },
   "keywords": [],
-  "author": "Deo Subarno",
+  "author": "Bulma Kamsamita",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.0",
