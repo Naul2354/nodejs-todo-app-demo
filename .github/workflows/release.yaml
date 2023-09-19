@@ -27,11 +27,11 @@ jobs:
       - name: "🚀 static app"
         run: npm run build
 
-      # - name: "📂 production artifacts"
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: build
-      #     path: build
+      - name: "📂 production artifacts"
+        uses: actions/upload-artifact@v2
+        with:
+          name: node-app
+          path: .
 
   build-container:
     name: Build Docker Container
@@ -68,33 +68,39 @@ jobs:
           name: docker-image
           path: /tmp/docker.tar # Specify the path to the tar archive
 
-  deploy-container:
-    name: Deploy Docker Container to Azure
+  deploy:
+    name: Deploy App to Azure WebApp
     runs-on: ubuntu-latest
-    needs: build-container
+    needs: build
     environment:
       name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: "📂 Download Docker image artifact..."
+      # - name: "📂 Download Docker image artifact..."
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: docker-image
+      #     path: /tmp
+      - name: "📂 Download artifact from build job"
         uses: actions/download-artifact@v2
         with:
-          name: docker-image
-          path: /tmp
+          name: node-app
+      # - name: "🚀 Load Docker image from artifact..."
+      #   run: |
+      #     docker load -i /tmp/docker.tar
+      #     docker image ls -a
+      # - name: "🚀 Install Azure Actions Webclient"
+      #   run: npm install azure-actions-webclient
 
-      - name: "🚀 Load Docker image from artifact..."
-        run: |
-          docker load -i /tmp/docker.tar
-          docker image ls -a
-      - name: "🚀 Install Azure Actions Webclient"
-        run: npm install azure-actions-webclient
-
-      - name: "🚀 Deploy Docker image to Azure Web App"
-        uses: azure/webapps-container-deploy@v1
+      - name: "🚀 Deploy to Azure Web App"
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
         with:
           app-name: 'todoapp1'
-          images: 'todo-app:latest'
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B5833D69E0FE4DE5948B0DF5AB44D066 }}
+          package: .
   cleanup:
     name: Clean up
     runs-on: ubuntu-latest
