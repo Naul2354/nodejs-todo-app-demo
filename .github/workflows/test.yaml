@@ -71,5 +71,5 @@ jobs:
           app-name: 'todoapp1' # Replace with your Azure Web App name
           slot-name: 'production' # Replace with your deployment slot name if applicable
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B5833D69E0FE4DE5948B0DF5AB44D066 }}
-          images: 'naul23541/todoapp1:latest' # Specify the Docker image from Docker Hub
+          images: 'naul23541/todoapp1:main' # Specify the Docker image from Docker Hub
 
