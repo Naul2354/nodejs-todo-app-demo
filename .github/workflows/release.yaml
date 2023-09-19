@@ -27,11 +27,11 @@ jobs:
       - name: "🚀 static app"
         run: npm run build
 
-      - name: "📂 production artifacts"
-        uses: actions/upload-artifact@v2
-        with:
-          name: build
-          path: build
+      # - name: "📂 production artifacts"
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: build
+      #     path: build
 
   build-container:
     name: Build Docker Container
@@ -86,13 +86,13 @@ jobs:
         run: |
           docker load -i /tmp/docker.tar
           docker image ls -a
+      - name: "🚀 Install Azure Actions Webclient"
+        run: npm install azure-actions-webclient
 
       - name: "🚀 Deploy Docker image to Azure Web App"
-        uses: azure/webapps-container-deploy@v1
+        uses: azure/webapps-container-deploy@v2
         with:
           app-name: 'todoapp1'
-          images: 'todo-app:latest'
-
   cleanup:
     name: Clean up
     runs-on: ubuntu-latest
