@@ -1,17 +1,22 @@
-name: Build
+name: Release
+
 on:
   push:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: "☁️ checkout repository"
+      - name: "☁️Checkout code"
         uses: actions/checkout@v2
-      - name: "🔧 setup Node.js"
+
+      - name: "🔧Setup Node.js"
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - name: "📦 install dependencies"
-        uses: npm install
+
+      - name: "🔧Install dependencies"
+        run: npm install
