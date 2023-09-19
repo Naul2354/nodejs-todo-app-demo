@@ -60,16 +60,16 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
-  steps:
-    - name: "🚀 Install Azure Actions Webclient"
-      run: npm install azure-actions-webclient
+    steps:
+      - name: "🚀 Install Azure Actions Webclient"
+        run: npm install azure-actions-webclient
 
-    - name: "🚀 Deploy to Azure Web App"
-      id: deploy-to-webapp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'todoapp1' # Replace with your Azure Web App name
-        slot-name: 'production' # Replace with your deployment slot name if applicable
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B5833D69E0FE4DE5948B0DF5AB44D066 }}
-        images: 'naul23541/todoapp1:latest' # Specify the Docker image from Docker Hub
+      - name: "🚀 Deploy to Azure Web App"
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'todoapp1' # Replace with your Azure Web App name
+          slot-name: 'production' # Replace with your deployment slot name if applicable
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B5833D69E0FE4DE5948B0DF5AB44D066 }}
+          images: 'naul23541/todoapp1:latest' # Specify the Docker image from Docker Hub
 
