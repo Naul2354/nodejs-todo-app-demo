@@ -69,7 +69,7 @@ jobs:
           path: /tmp/docker.tar # Specify the path to the tar archive
 
   deploy-container:
-    name: Deploy Docker Container to Azure Web App
+    name: Deploy Docker Container to Azure
     runs-on: ubuntu-latest
     needs: build-container
     environment:
