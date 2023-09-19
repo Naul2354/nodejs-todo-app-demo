@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Todo = mongoose.model("Todo", {
-  kegiatan: {
+  action: {
     type: String,
     required: true,
   },

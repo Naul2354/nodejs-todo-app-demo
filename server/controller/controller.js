@@ -20,22 +20,33 @@ exports.addTodoRoutes = function (req, res) {
 
 // Add new todo
 exports.addTodo = async function (req, res) {
-  const todos = await Todo.find({});
-  const duplicateTodos = todos.find(
-    (todo) => todo.kegiatan.toLowerCase() === req.body.kegiatan.toLowerCase()
-  );
+  try {
+    // Check if a todo with the same 'kegiatan' already exists
+    const existingTodo = await Todo.findOne({
+      action: req.body.action.toLowerCase(),
+    });
 
-  if (duplicateTodos) {
-    res.render("add-todo", {
-      title: "Add Todo",
-      layout: "layouts/mainLayout",
-      error: "Nama todo tidak boleh sama!",
+    if (existingTodo) {
+      // A todo with the same 'kegiatan' already exists
+      return res.render('add-todo', {
+        title: 'Add Todo',
+        layout: 'layouts/mainLayout',
+        error: 'Task already have , please add another task!',
+      });
+    }
+
+    // Create a new todo and save it to the database
+    const newTodo = new Todo({
+      action: req.body.action,
+      // Add other properties from req.body as needed
     });
-    return false;
-  } else {
-    Todo.insertMany(req.body, function (err, result) {
-      res.redirect("/");
-    });
+
+    await newTodo.save();
+
+    res.redirect('/');
+  } catch (error) {
+    console.error('Error adding todo:', error);
+    res.status(500).send('Internal Server Error');
   }
 };
 
@@ -49,27 +60,18 @@ exports.editTodoRoutes = async function (req, res) {
   });
 };
 
+
 // edit todo
 exports.editTodo = async function (req, res) {
-  const todos = await Todo.find({});
-  const duplicateTodos = todos.find(
-    (todo) => todo.kegiatan.toLowerCase() === req.body.kegiatan.toLowerCase()
-  );
-
-  if (duplicateTodos) {
-    res.render("edit-todo", {
-      title: "Edit Todo",
-      layout: "layouts/mainLayout",
-      error: "Nama todo tidak boleh sama!",
-      todo: req.body,
-    });
-    return false;
-  } else {
-    Todo.findByIdAndUpdate(req.body._id, req.body).then((result) => {
-      res.redirect("/");
-    });
+  try {
+    await Todo.findByIdAndUpdate(req.body._id, req.body);
+    res.redirect("/");
+  } catch (error) {
+    console.error("Error editing todo:", error);
+    res.status(500).send("Internal Server Error");
   }
 };
+
 
 // delete todo
 exports.deleteTodo = function (req, res) {

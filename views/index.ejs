@@ -1,6 +1,6 @@
 <div class="content">
   <div class="content-title">
-    <h1>What's plan today ?</h1>
+    <h1>What's your plan today, Bo?</h1>
   </div>
   <div class="content-main">
     <a href="/add-todo"><i class="fa-solid fa-plus"></i>&nbsp;Add Todo</a>
@@ -10,7 +10,7 @@
       <% todos.forEach((todo, index) => { %>
         <div class="list-item">
           <p>
-            <%= index + 1 %>. <%= todo.kegiatan %>
+            <%= index + 1 %>. <%= todo.action %>
           </p>
           <div class="list-item-action">
             <a href="/edit-todo/<%= todo._id %>">
@@ -18,7 +18,7 @@
             </a>
             <form action="/?_method=DELETE" method="post">
               <input type="hidden" name="_id" value="<%= todo._id %>">
-              <button type="submit" onclick="return confirm('Hapus todo?');"><i class="fa-solid fa-trash-can"></i></button>
+              <button type="submit" onclick="return confirm('Delete this task todo?');"><i class="fa-solid fa-trash-can"></i></button>
             </form>
           </div>
         </div>
