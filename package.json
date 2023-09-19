@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "nodemon app",
     "sass": "sass --watch scss/style.scss:public/css/style.css",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app"
+    "start": "node app",
+    "build:debug": "npm run build -- --debug",
+    "build": "npm run build"
   },
   "keywords": [],
   "author": "Bulma Kamsamita",
@@ -15,7 +16,7 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
-    "express": "^4.17.3",
+    "express": "^4.18.2",
     "express-ejs-layouts": "^2.5.1",
     "method-override": "^3.0.0",
     "mongoose": "^6.2.3"
