@@ -58,6 +58,7 @@ jobs:
         with:
           app-name: 'todoapp1'
           images: 'todo-app:latest'
+
   cleanup:
     name: Clean up
     runs-on: ubuntu-latest
