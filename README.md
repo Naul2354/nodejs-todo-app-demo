@@ -36,3 +36,4 @@ npm run dev
 ```
 http://localhost:8089
 ```
+[![.github/workflows/release.yaml](https://github.com/Naul2354/nodejs-todo-app-demo/actions/workflows/release.yaml/badge.svg?branch=main)](https://github.com/Naul2354/nodejs-todo-app-demo/actions/workflows/release.yaml)
