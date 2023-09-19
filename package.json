@@ -8,7 +8,8 @@
     "sass": "sass --watch scss/style.scss:public/css/style.css",
     "start": "node app",
     "build:debug": "npm run build -- --debug",
-    "build": "npm run build"
+    "build": "npm run build",
+    "test": "jest"
   },
   "keywords": [],
   "author": "Bulma Kamsamita",
@@ -22,6 +23,16 @@
     "mongoose": "^6.2.3"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
     "nodemon": "^2.0.15"
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      ["jest-junit", 
+      { "outputDirectory": "./test-results", "outputName": "junit.xml" }]
+    ]
   }
+  
 }
