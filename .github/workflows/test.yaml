@@ -25,6 +25,7 @@ jobs:
 
       - name: "🚀 Static app"
         run: npm run build
+  
 
   build-container:
     name: Push Docker image to Docker Hub

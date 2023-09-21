@@ -1,5 +1,5 @@
 const Todo = require("../model/todos");
-
+const { validationResult } = require('express-validator');
 // Show All Documents || Home page
 exports.findAllTodo = async function (req, res) {
   const todos = await Todo.find({});
@@ -10,7 +10,6 @@ exports.findAllTodo = async function (req, res) {
   });
 };
 
-// Add todo page
 exports.addTodoRoutes = function (req, res) {
   res.render("add-todo", {
     title: "Add Todo",
@@ -19,30 +18,69 @@ exports.addTodoRoutes = function (req, res) {
 };
 
 // Add new todo
+// exports.addTodo = async function (req, res) {
+//   try {
+//     const existingTodo = await Todo.findOne({
+//       action: req.body.action.toLowerCase(),
+//     });
+
+//     if (existingTodo) {
+//       return res.render('add-todo', {
+//         title: 'Add Todo',
+//         layout: 'layouts/mainLayout',
+//         error: 'Task already have , please add another task!',
+//       });
+//     }
+
+//     // Create a new todo and save it to the database
+//     const newTodo = new Todo({
+//       action: req.body.action,
+//     });
+
+//     await newTodo.save();
+
+//     res.redirect('/');
+//   } catch (error) {
+//     console.error('Error adding todo:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// };
+
+
 exports.addTodo = async function (req, res) {
   try {
-    // Check if a todo with the same 'kegiatan' already exists
+    // Check for validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // Validation errors found, render the add-todo page with error messages
+      return res.render('add-todo', {
+        title: 'Add Todo',
+        layout: 'layouts/mainLayout',
+        error: 'No description. Please enter a task.',
+      });
+    }
+
     const existingTodo = await Todo.findOne({
       action: req.body.action.toLowerCase(),
     });
 
     if (existingTodo) {
-      // A todo with the same 'kegiatan' already exists
+      // Task with the same description already exists
       return res.render('add-todo', {
         title: 'Add Todo',
         layout: 'layouts/mainLayout',
-        error: 'Task already have , please add another task!',
+        error: 'Task already exists. Please add another task.',
       });
     }
 
     // Create a new todo and save it to the database
     const newTodo = new Todo({
       action: req.body.action,
-      // Add other properties from req.body as needed
     });
 
     await newTodo.save();
 
+    // Redirect to the main page or perform the necessary action
     res.redirect('/');
   } catch (error) {
     console.error('Error adding todo:', error);
@@ -50,7 +88,10 @@ exports.addTodo = async function (req, res) {
   }
 };
 
-// Edit todo page
+
+
+
+
 exports.editTodoRoutes = async function (req, res) {
   const todo = await Todo.findById(req.params.id);
   res.render("edit-todo", {
@@ -61,7 +102,6 @@ exports.editTodoRoutes = async function (req, res) {
 };
 
 
-// edit todo
 exports.editTodo = async function (req, res) {
   try {
     await Todo.findByIdAndUpdate(req.body._id, req.body);
@@ -73,7 +113,6 @@ exports.editTodo = async function (req, res) {
 };
 
 
-// delete todo
 exports.deleteTodo = function (req, res) {
   Todo.findByIdAndDelete(req.body._id).then((result) => {
     res.redirect("/");
