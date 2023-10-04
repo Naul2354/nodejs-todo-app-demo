@@ -1,4 +1,4 @@
-name: Release
+name: Release Production 
 
 on:
   push:
@@ -23,8 +23,8 @@ jobs:
       - name: "📦 Run unit test"
         run: npm test
 
-      - name: "🚀 Static app"
-        run: npm run build
+      # - name: "🚀 Static app"
+      #   run: npm run build
 
   build-container:
     name: Push Docker image to Docker Hub
